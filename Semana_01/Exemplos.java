@@ -3,7 +3,7 @@ public class Exemplos {
         int x = 10;
         int y = 5;
         int i = 1;
-        int l = 50;
+        int l;
         l = x + y + i;
         System.out.println(l);
     }
