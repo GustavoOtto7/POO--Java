@@ -2,8 +2,8 @@ public class Exercicio_01 {
 
     int [] matricula = {1,2,3,4,5,6,7,8,9,10};
     String [] nome = {"Joao", "Maria", "Pedro", "Clara", "Jose", "Carla", "Fabio", "Mara", "Cesar", "Ana"};
-    int [] idades = {12,18,15,16,17,14,17,13,16,17};
-    double [] alturas = {1.75,1.54,1.62,1.60,2.65,1.62,1.62,1.74,1.61,1.68};
+    int [] idades = {14,18,15,16,17,14,17,13,16,17};
+    double [] alturas = {1.75,1.54,1.62,1.60,1.65,1.62,1.62,1.74,1.61,1.68};
 
     public double calcularMediaIdade() {
     int soma_idade = 0;
