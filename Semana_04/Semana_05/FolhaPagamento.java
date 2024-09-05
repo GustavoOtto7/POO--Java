@@ -48,7 +48,6 @@ public class FolhaPagamento {
 
     public void inserirDados(){
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Digite o código do funcionário:");
         int codigo = scanner.nextInt();
         System.out.println("Digite a quantidade de horas trabalhadas:");
