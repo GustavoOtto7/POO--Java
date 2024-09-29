@@ -1,8 +1,8 @@
 public class Carro {
-    private String marca;
-    private String modelo;
-    private int ano;
-    private float preco;
+    private String marca = "";
+    private String modelo = "";
+    private int ano = 1900;
+    private float preco = 0;
 
         public Carro(String marca, String modelo, int ano, float preco){
         this.marca = marca;
