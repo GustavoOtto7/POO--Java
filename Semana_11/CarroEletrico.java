@@ -5,14 +5,16 @@ public class CarroEletrico {
     private String marca;
     private String modelo;
     private int anoFab;
+    private int quilometragem;
     private int capBateria;
     private int maxAuto;
 
-    public CarroEletrico(int id, String marca, String modelo, int anoFab, int capBateria, int maxAuto) {
+    public CarroEletrico(int id, String marca, String modelo, int anoFab, int quilometragem, int capBateria, int maxAuto) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.anoFab = anoFab;
+        this.quilometragem = quilometragem;
         this.capBateria = capBateria;
         this.maxAuto = maxAuto;
     }
@@ -31,6 +33,10 @@ public class CarroEletrico {
 
     public int getAnoFab() {
         return anoFab;
+    }
+
+    public int getQuilometragem() {
+        return quilometragem;
     }
 
     public int getCapBateria() {
@@ -55,6 +61,10 @@ public class CarroEletrico {
 
     public void setAnoFab(int anoFab) {
         this.anoFab = anoFab;
+    }
+
+    public void setQuilometragem(int quilometragem) {
+        this.quilometragem = quilometragem;
     }
 
     public void setCapBateria(int capBateria) {
