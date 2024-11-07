@@ -6,6 +6,7 @@ public class CarroEletrico {
     private String modelo;
     private int anoFab;
     private int quilometragem;
+    private int autonomiaRestante;
     private int capBateria;
     private int maxAuto;
 
@@ -15,8 +16,14 @@ public class CarroEletrico {
         this.modelo = modelo;
         this.anoFab = anoFab;
         this.quilometragem = quilometragem;
+        this.autonomiaRestante = maxAuto;
         this.capBateria = capBateria;
         this.maxAuto = maxAuto;
+    }
+
+    public void recarregar() {
+        this.autonomiaRestante = maxAuto;
+        this.setAutonomiaRestante(this.getMaxAuto(), 0);
     }
 
     public int getId() {
@@ -37,6 +44,10 @@ public class CarroEletrico {
 
     public int getQuilometragem() {
         return quilometragem;
+    }
+
+    public int getAutonomiaRestante() {
+        return autonomiaRestante;
     }
 
     public int getCapBateria() {
@@ -65,6 +76,13 @@ public class CarroEletrico {
 
     public void setQuilometragem(int quilometragem) {
         this.quilometragem = quilometragem;
+    }
+
+    public void setAutonomiaRestante(int autonomiaRestante, int distanciaPercorrida) {
+        this.autonomiaRestante = autonomiaRestante - distanciaPercorrida;
+        if (this.autonomiaRestante < 0) {
+            this.autonomiaRestante = 0;
+        }
     }
 
     public void setCapBateria(int capBateria) {

@@ -2,12 +2,12 @@ package Semana_11;
 
 public class Eletropostos {
     private int id;
-    private LocalPosto local;
+    private String local;
     private int numVagas;
     private int tempoCarregamento;
     private int posicaoKm;
 
-    public Eletropostos( int id, LocalPosto local, int numVagas, int tempoCarregamento, int posicaoKm) {
+    public Eletropostos( int id, String local, int numVagas, int tempoCarregamento, int posicaoKm) {
       this.id = id;
       this.local = local;
       this.numVagas = numVagas;
@@ -15,15 +15,11 @@ public class Eletropostos {
       this.posicaoKm = posicaoKm;
     }
 
-    public enum LocalPosto {
-      CIDADE, ESTRADA;
-    }
-
     public int getId() {
         return id;
     }
 
-    public LocalPosto getLocal() {
+    public String getLocal() {
         return local;
     }
 
@@ -43,7 +39,7 @@ public class Eletropostos {
         this.id = id;
     }
 
-    public void setLocal(LocalPosto local) {
+    public void setLocal(String local) {
         this.local = local;
     }
 
