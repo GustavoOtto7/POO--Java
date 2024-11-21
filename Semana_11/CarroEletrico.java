@@ -1,5 +1,6 @@
 package Semana_11;
 
+// Classe mãe: CarroEletrico
 public class CarroEletrico {
     private int id;
     private String marca;
@@ -9,7 +10,8 @@ public class CarroEletrico {
     private int autonomiaRestante;
     private int capBateria;
     private int maxAuto;
-
+ 
+    // Construtor
     public CarroEletrico(int id, String marca, String modelo, int anoFab, int quilometragem, int capBateria, int maxAuto) {
         this.id = id;
         this.marca = marca;
@@ -21,11 +23,13 @@ public class CarroEletrico {
         this.maxAuto = maxAuto;
     }
 
+    // Método que realiza a recarga do veículo
     public void recarregar() {
         this.autonomiaRestante = maxAuto;
         this.setAutonomiaRestante(this.getMaxAuto(), 0);
     }
 
+    // Getters e Setters 
     public int getId() {
         return id;
     }

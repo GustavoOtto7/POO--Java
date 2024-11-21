@@ -1,5 +1,6 @@
 package Semana_11;
 
+// Classe Eletropostos
 public class Eletropostos {
     private int id;
     private String local;
@@ -7,6 +8,7 @@ public class Eletropostos {
     private int tempoCarregamento;
     private int posicaoKm;
 
+    // Construtor
     public Eletropostos( int id, String local, int numVagas, int tempoCarregamento, int posicaoKm) {
       this.id = id;
       this.local = local;
@@ -15,6 +17,7 @@ public class Eletropostos {
       this.posicaoKm = posicaoKm;
     }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestaoViagem {
-    private List<Viagem> historicoViagens;  
+    protected List<Viagem> historicoViagens;  
 
     public GestaoViagem() {
         this.historicoViagens = new ArrayList<>();

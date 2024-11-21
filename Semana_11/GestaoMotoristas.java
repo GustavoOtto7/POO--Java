@@ -3,18 +3,21 @@ package Semana_11;
 import java.util.ArrayList;
 import java.util.List;
 
+// Classe que faz a gestão dos motoristas
 public class GestaoMotoristas {
-    private List<Motorista> listaMotoristas;
+    protected List<Motorista> listaMotoristas;
 
     public GestaoMotoristas() {
         this.listaMotoristas = new ArrayList<>();
     }
 
+    // Método para adicionar um motorista à lista
     public void adicionarMotorista(Motorista motorista) {
         listaMotoristas.add(motorista);
         System.out.println("Motorista adicionado à lista: " + motorista.getNome() + " com o ID: " + motorista.getId());
     }
 
+    // Método para remover um motorista da lista
     public boolean removerMotorista(int id) {
         for (Motorista motorista : listaMotoristas) {
             if (motorista.getId() == id) {
@@ -27,6 +30,7 @@ public class GestaoMotoristas {
         return false;
     }
 
+    // Método para listar os motoristas da lista
     public void listarMotoristas() {
         if (listaMotoristas.isEmpty()) {
             System.out.println("Nenhum motorista na lista.");

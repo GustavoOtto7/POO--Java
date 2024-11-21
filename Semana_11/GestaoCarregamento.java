@@ -6,8 +6,8 @@ import java.util.List;
 public class GestaoCarregamento {
     // Classe para representar um evento de recarga
     public static class EventoRecarga {
-        private Date data;
-        private Eletropostos eletropostos;
+        protected Date data;
+        protected  Eletropostos eletropostos;
         
         public EventoRecarga(Date data, Eletropostos eletropostos) {
             this.data = new Date();
@@ -15,7 +15,7 @@ public class GestaoCarregamento {
         }
     }
 
-    private List<EventoRecarga> historicoRecargas;  // Lista de eventos de recarga
+    protected List<EventoRecarga> historicoRecargas;  // Lista de eventos de recarga
 
     public GestaoCarregamento() {
         this.historicoRecargas = new ArrayList<>();

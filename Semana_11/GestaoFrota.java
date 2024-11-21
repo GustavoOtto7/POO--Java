@@ -3,8 +3,9 @@ package Semana_11;
 import java.util.ArrayList;
 import java.util.List;
 
+// Classe que faz a gestão da frota dos carros elétricos
 public class GestaoFrota {
-    private List<CarroEletrico> frota; // Lista que armazena todos os carros elétricos
+    protected List<CarroEletrico> frota; 
 
     public GestaoFrota() {
         this.frota = new ArrayList<>();
@@ -13,14 +14,15 @@ public class GestaoFrota {
     // Método para adicionar um carro à frota
     public void adicionarCarro(CarroEletrico carro) { 
         frota.add(carro);
-        System.out.println("Carro adicionado à frota: " + carro.getModelo() + "com o ID: " + carro.getId());
+        System.out.println("Carro adicionado à frota: " + carro.getModelo() + " com o ID: " + carro.getId());
     }
 
+    // Método para remover um carro da frota
     public boolean removerCarro(int id) {
         for (CarroEletrico carro : frota) {
             if (carro.getId() == id) {
                 frota.remove(carro);
-                System.out.println("Carro removido da frota: " + carro.getModelo() + "com o ID: " + carro.getId());
+                System.out.println("Carro removido da frota: " + carro.getModelo() + " com o ID: " + carro.getId());
                 return true;
             }
         }
