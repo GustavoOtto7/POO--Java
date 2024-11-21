@@ -23,12 +23,6 @@ public class CarroEletrico {
         this.maxAuto = maxAuto;
     }
 
-    // Método que realiza a recarga do veículo
-    public void recarregar() {
-        this.autonomiaRestante = maxAuto;
-        this.setAutonomiaRestante(this.getMaxAuto(), 0);
-    }
-
     // Getters e Setters 
     public int getId() {
         return id;
@@ -82,8 +76,8 @@ public class CarroEletrico {
         this.quilometragem = quilometragem;
     }
 
-    public void setAutonomiaRestante(int autonomiaRestante, int distanciaPercorrida) {
-        this.autonomiaRestante = autonomiaRestante - distanciaPercorrida;
+    public void setAutonomiaRestante(int autonomiaRestante) {
+        this.autonomiaRestante = autonomiaRestante;
         if (this.autonomiaRestante < 0) {
             this.autonomiaRestante = 0;
         }

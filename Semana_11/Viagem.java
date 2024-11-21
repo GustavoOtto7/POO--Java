@@ -3,104 +3,104 @@ package Semana_11;
 import java.util.ArrayList;
 import java.util.List;
 
+// Classe Viagem
 public class Viagem {
     private Motorista motorista;
     private CarroEletrico carro;
-    private List<Eletropostos> paradas;    
     private String destino;
     private int quilometragemTotal;
     private int distanciaPercorrida;
     private int autonomiaRestante;
+    private List<Eletropostos> paradas;
+    private List<String> historicoViagem;
 
+    // Construtor
     public Viagem(Motorista motorista, CarroEletrico carro, String destino, int quilometragemTotal) {
         this.motorista = motorista;
         this.carro = carro;
         this.destino = destino;
         this.quilometragemTotal = quilometragemTotal;
-        this.autonomiaRestante = carro.getAutonomiaRestante(); 
-        this.paradas = new ArrayList<>(); 
+        this.autonomiaRestante = carro.getAutonomiaRestante();
+        this.paradas = new ArrayList<>();
+        this.historicoViagem = new ArrayList<>();
     }
 
-    public void iniciarViagem(int distanciaDestino, List<Eletropostos> eletropostos) {
-        System.out.println("Iniciando viagem para o destino de " + distanciaDestino + " km.");    
+    // Método que inicia a viagem realizando verificação de autonomia
+    public void iniciarViagem(List<Eletropostos> eletropostos, GestaoCarregamento gestaoCarregamento) {
+        int distanciaDestino = this.quilometragemTotal; 
+        System.out.println("Iniciando viagem para o destino de " + distanciaDestino + " km.");
         if (carro.getAutonomiaRestante() < distanciaDestino) {
-            System.out.println("Autonomia insuficiente para a viagem, paradas para recarga serão necessárias.");            
-            planejarParadas(eletropostos, distanciaDestino);
+            System.out.println("Autonomia insuficiente para a viagem, paradas para recarga serão necessárias.");
+            planejarParadas(eletropostos, distanciaDestino, gestaoCarregamento);
         } else {
             System.out.println("A autonomia é suficiente para a viagem. Nenhuma parada necessária.");
+            finalizarViagem(distanciaDestino);
         }
     }
 
-    public void planejarParadas(List<Eletropostos> listaEletropostos, int distanciaDestino) {
+    // Método que planeja paradas em eletropostos durante a viagem
+    public void planejarParadas(List<Eletropostos> listaEletropostos, int distanciaDestino, GestaoCarregamento gestaoCarregamento) {
         int posicaoAtual = 0;
-    
         for (Eletropostos eletroposto : listaEletropostos) {
             int distanciaParaProximoEletroposto = eletroposto.getPosicaoKm() - posicaoAtual;
             if (carro.getAutonomiaRestante() < distanciaParaProximoEletroposto) {
                 System.out.println("Parada para recarga no Eletroposto " + eletroposto.getId() + " na posição " + eletroposto.getPosicaoKm() + " km.");
                 if (eletroposto.getNumVagas() > 0) {
-                    carro.recarregar();
-                    //carro.setAutonomiaRestante(carro.getMaxAuto(), 0);
-                    eletroposto.setNumVagas(eletroposto.getNumVagas() - 1);
-                    System.out.println("Recarga realizada com sucesso. Vagas restantes: " + eletroposto.getNumVagas());
+                    eletroposto.setNumVagas(eletroposto.getNumVagas() - 1); 
+                    System.out.println("Vaga ocupada. Vagas restantes: " + eletroposto.getNumVagas());
+                    gestaoCarregamento.recarregar(carro, eletroposto);
+                    eletroposto.setNumVagas(eletroposto.getNumVagas() + 1); 
+                    System.out.println("Recarga concluída. Vaga liberada. Vagas disponíveis: " + eletroposto.getNumVagas());
                 } else {
                     System.out.println("Eletroposto " + eletroposto.getId() + " sem vagas disponíveis. Continuando a jornada.");
                     continue;
                 }
             }
             posicaoAtual = eletroposto.getPosicaoKm();
-            carro.setAutonomiaRestante(carro.getAutonomiaRestante(), distanciaParaProximoEletroposto);
+            carro.setAutonomiaRestante(carro.getAutonomiaRestante() - distanciaParaProximoEletroposto); // Atualiza a autonomia após a viagem até o próximo eletroposto
         }
+        // Verificação final se a autonomia restante é suficiente para completar o destino
         int distanciaParaDestino = distanciaDestino - posicaoAtual;
         if (carro.getAutonomiaRestante() < distanciaParaDestino) {
             System.out.println("Parada final para recarga antes de chegar ao destino.");
-            carro.recarregar();
+            Eletropostos ultimoEletroposto = listaEletropostos.get(listaEletropostos.size() - 1);
+            if (ultimoEletroposto.getNumVagas() > 0) {
+                ultimoEletroposto.setNumVagas(ultimoEletroposto.getNumVagas() - 1); 
+                gestaoCarregamento.recarregar(carro, ultimoEletroposto); 
+                ultimoEletroposto.setNumVagas(ultimoEletroposto.getNumVagas() + 1); 
+                System.out.println("Recarga concluída no Eletroposto " + ultimoEletroposto.getId() + ". Vaga liberada. Vagas disponíveis: " + ultimoEletroposto.getNumVagas());
+            } else {
+                System.out.println("Eletroposto " + ultimoEletroposto.getId() + " sem vagas disponíveis. Viagem interrompida.");
+            }
         } else {
             System.out.println("Viagem concluída sem necessidade de recarga adicional.");
+            finalizarViagem(distanciaDestino);
         }
     }
 
-    public void registrarParadas(List<Eletropostos> listaEletropostos) {
-        for (Eletropostos eletropostos : listaEletropostos) {
-            if (carro.getAutonomiaRestante() < eletropostos.getPosicaoKm()) {
-                paradas.add(eletropostos);
-                System.out.println("Parada registrada no Eletroposto " + eletropostos.getId() + " na posição " + eletropostos.getPosicaoKm() + " km.");
-                carro.recarregar();  
-                //carro.setAutonomiaRestante(carro.getMaxAuto(), 0);  // Atualiza a autonomia após a recarga
-            }
-        }
+    // Método que finaliza a viagem e atualiza a quilometragem
+    private void finalizarViagem(int distanciaDestino) {
+        this.distanciaPercorrida = distanciaDestino;
+        carro.setQuilometragem(carro.getQuilometragem() + distanciaPercorrida);
+        System.out.println("Viagem finalizada com sucesso! Distância total percorrida: " + distanciaPercorrida + " km.");
+        historicoViagem.add("Viagem finalizada | Distância percorrida: " + distanciaPercorrida + " km.");
     }
-    
-    public void finalizarViagem(GestaoViagem historicoViagens, Viagem viagem, CarroEletrico carro) {
-        carro.setAutonomiaRestante(getAutonomiaRestante(), distanciaPercorrida);
-        carro.setQuilometragem(carro.getQuilometragem() + viagem.getQuilometragemTotal());
-        historicoViagens.registrarViagem(this);  // Registra a viagem no histórico
-        System.out.println("Viagem finalizada com sucesso! Distância total: " + viagem.getQuilometragemTotal() + " km.");
-    }
-    
+
+    // Método que lista sobre como foi a viagem
     public void listaHistoricoViagem() {
-        System.out.println("Histórico da viagem:");
-        System.out.println("Motorista: " + motorista.getNome() + " | Carro: " + carro.getModelo() + " - " + carro.getId() + " | Distância percorrida: " + distanciaPercorrida + " km | Paradas: " + paradas.size());
+        System.out.println("Histórico da Viagem:");
+        for (String registro : historicoViagem) {
+            System.out.println(registro);
+        }
     }
 
+    // Getters e Setters
     public Motorista getMotorista() {
         return motorista;
     }
-    
-    public void setMotorista(Motorista motorista) {
-        this.motorista = motorista;
-    }
-    
+
     public CarroEletrico getCarro() {
         return carro;
-    }
-    
-    public void setCarro(CarroEletrico carro) {
-        this.carro = carro;
-    }
-
-    public List<Eletropostos> getParadas() {
-        return paradas;
     }
 
     public String getDestino() {
@@ -119,23 +119,7 @@ public class Viagem {
         return autonomiaRestante;
     }
 
-    public void setParadas(List<Eletropostos> paradas) {
-        this.paradas = paradas;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public void setQuilometragemTotal(int quilometragemTotal) {
-        this.quilometragemTotal = quilometragemTotal;
-    }
-
-    public void setDistanciaPercorrida(int distanciaPercorrida) {
-        this.distanciaPercorrida = distanciaPercorrida;
-    }
-
     public void setAutonomiaRestante(int autonomiaRestante) {
         this.autonomiaRestante = autonomiaRestante;
-    }    
+    }
 }
