@@ -3,7 +3,6 @@ package Semana_11;
 // Classe Principal onde o Sistema irá funcionar
 public class Principal {
     public static void main(String[] args) {
-        System.out.println("FÉ");
         // Criando motoristas
         Motorista motorista1 = new Motorista("João", 1, 111, Motorista.NivelExperiencia.INICIANTE);
         Motorista motorista2 = new Motorista("Maria", 2, 222, Motorista.NivelExperiencia.INTERMEDIARIO);
